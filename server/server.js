@@ -16,7 +16,7 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 }
 
 // dbconnection
-dbConnection()
+dbConnection();
 
 // creating our server
 const server = app.listen(process.env.PORT, () => {
