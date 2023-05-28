@@ -3,6 +3,8 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles/styles.js";
 import { Link } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
+import axios from "axios";
+import { server } from "../../server.js";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
@@ -11,13 +13,31 @@ const SignUpPage = () => {
   const [visible, setVisible] = useState(false);
   const [avatar, setAvatar] = useState(null);
 
-  const handleSubmit = () => {
-    console.log("File submitted");
-  };
-
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     setAvatar(file);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
+
+    const newForm = new FormData();
+
+    newForm.append("file", avatar);
+    newForm.append("name", name);
+    newForm.append("email", email);
+    newForm.append("password", password);
+
+    axios
+      .post(`${server}/user/create-user`, newForm, config)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -28,7 +48,7 @@ const SignUpPage = () => {
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-ld sm:px-8 rounded-md">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="name"
@@ -134,7 +154,7 @@ const SignUpPage = () => {
             </div>
             <div>
               <button
-                type="button"
+                type="submit"
                 className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
                 Submit
