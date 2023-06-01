@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login, SignUp, Activation } from "./Routes.js";
-import { ToastContainer, toast } from "react-toastify";
+import { Login, SignUp, Activation, HomePage } from "./Routes.js";
+import { ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import axios from "axios";
 // import { server } from "./server";
@@ -25,6 +25,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/activation/:activation_token" element={<Activation />} />
