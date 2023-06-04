@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import styles from "../../styles/styles";
 import { Link } from "react-router-dom";
-import { productData } from "../../static/data";
+import { categoriesData, productData } from "../../static/data";
 import { AiOutlineSearch } from "react-icons/ai";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowDropdown, IoIosArrowForward } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
+import DropDown from "./DropDown"
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
 
   const handleSearchChange = (e) => {
     e.preventDefault();
@@ -90,18 +92,34 @@ const Header = () => {
       </div>
       {/* category */}
       <div
-          className={`${
-            active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
-          } transition hidden md:flex items-center justify-between w-full bg-[#3321c8] h-[70px]`}
+        className={`${
+          active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
+        } transition hidden md:flex items-center justify-between w-full bg-[#3321c8] h-[70px]`}
+      >
+        <div
+          className={`${styles.section} relative ${styles.normalFlex} justify-between`}
         >
-          <div
-            className={`${styles.section} relative ${styles.normalFlex} justify-between`}
-          >
-            <div className="relative h-[60px] mt-[10px] w-[270px] hidden lg:block">
-              <BiMenuAltLeft size={30} className="absolute mt-3 ml-2" />
-            </div>
+          <div className="relative h-[60px] mt-[10px] w-[270px] hidden lg:block">
+            <BiMenuAltLeft size={30} className="absolute mt-3 ml-2" />
+            <button
+              className={`h-[100%] w-full flex justify-between items-center pl-10 bg-white font-[500] select-none rounded-t-md`}
+            >
+              All Categories
+            </button>
+            <IoIosArrowDropdown
+              size={20}
+              className="absolute right-2 top-4 cursor-pointer"
+              onClick={() => setDropDown(!dropDown)}
+            />
+            {dropDown ? (
+              <DropDown
+                categoriesData={categoriesData}
+                setDropDown={setDropDown}
+              />
+            ) : null}
           </div>
         </div>
+      </div>
     </>
   );
 };
