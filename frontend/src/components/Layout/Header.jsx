@@ -33,7 +33,7 @@ const Header = ({ activeHeading }) => {
     setSearchData(filteredProducts);
   };
   window.addEventListener("scroll", () => {
-    if (window.screenY > 70) {
+    if (window.scrollY > 70) {
       setActive(true);
     } else {
       setActive(false);
@@ -105,7 +105,7 @@ const Header = ({ activeHeading }) => {
           className={`${styles.section} relative ${styles.normalFlex} justify-between`}
         >
           {/* category */}
-          <div className="relative h-[60px] mt-[10px] w-[270px] hidden lg:block">
+          <div onClick={()=> setDropDown(!dropDown)} className="relative h-[60px] mt-[10px] w-[270px] hidden lg:block">
             <BiMenuAltLeft size={30} className="absolute mt-3 ml-2" />
             <button
               className={`h-[100%] w-full flex justify-between items-center pl-10 bg-white font-[500] select-none rounded-t-md`}
