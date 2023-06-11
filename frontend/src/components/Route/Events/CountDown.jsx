@@ -31,7 +31,7 @@ const CountDown = () => {
     }
 
     return (
-      <span className="text-[25px] text-[#475ad2]">
+      <span className="text-[25px] text-rose-500">
         {timeLeft[interval]} {interval}{" "}
       </span>
     );

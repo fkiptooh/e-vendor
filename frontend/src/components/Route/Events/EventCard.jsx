@@ -22,8 +22,8 @@ const EventCard = () => {
               {" "}
               1099$
             </h5>
-            <h5 className="font-bold text-[20px] text-gray-900 font-Roboto">
-              999$
+            <h5 className="font-bold text-[20px] text-blue-900 font-Roboto">
+              99$
             </h5>
           </div>
           <span className="text-[17px] pr-3 text-green-600 font-[400]">
