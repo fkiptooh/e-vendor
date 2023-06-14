@@ -1,7 +1,16 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login, SignUp, Activation, HomePage, ProductsPage } from "./Routes.js";
+import {
+  Login,
+  SignUp,
+  Activation,
+  HomePage,
+  ProductsPage,
+  BestSellingPage,
+  EventsPage,
+  FAQPage
+} from "./Routes.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import axios from "axios";
@@ -30,6 +39,10 @@ const App = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/activation/:activation_token" element={<Activation />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route path="/best-selling" element={<BestSellingPage />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/faq" element={<FAQPage />} />
+
       </Routes>
       <ToastContainer
         position="top-right"
