@@ -12,12 +12,17 @@ import { BiMenuAltLeft } from "react-icons/bi";
 import DropDown from "./DropDown";
 import Navbar from "./Navbar";
 import { CgProfile } from "react-icons/cg";
+import { useSelector } from "react-redux";
+import { backend_url } from "../../server";
 
 const Header = ({ activeHeading }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
   const [dropDown, setDropDown] = useState(false);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+
+  console.log(user);
 
   const handleSearchChange = (e) => {
     e.preventDefault();
@@ -105,7 +110,10 @@ const Header = ({ activeHeading }) => {
           className={`${styles.section} relative ${styles.normalFlex} justify-between`}
         >
           {/* category */}
-          <div onClick={()=> setDropDown(!dropDown)} className="relative h-[60px] mt-[10px] w-[270px] hidden lg:block">
+          <div
+            onClick={() => setDropDown(!dropDown)}
+            className="relative h-[60px] mt-[10px] w-[270px] hidden lg:block"
+          >
             <BiMenuAltLeft size={30} className="absolute mt-3 ml-2" />
             <button
               className={`h-[100%] w-full flex justify-between items-center pl-10 bg-white font-[500] select-none rounded-t-md`}
@@ -150,9 +158,19 @@ const Header = ({ activeHeading }) => {
             </div>
             <div className={`${styles.normalFlex}`}>
               <div className="relative cursor-pointer mr-[15px]">
-                <Link to="/login">
-                  <CgProfile size={30} color="rgb(255 255 255 /83%)" />
-                </Link>
+                {isAuthenticated ? (
+                  <Link to="/profile">
+                    <img
+                      src={`${backend_url}${user.avatar}`}
+                      alt="user_avatar"
+                      className="h-[35px] w-[35px] rounded-full"
+                    />
+                  </Link>
+                ) : (
+                  <Link to="/login">
+                    <CgProfile size={30} color="rgb(255 255 255 /83%)" />
+                  </Link>
+                )}
               </div>
             </div>
           </div>

@@ -27,6 +27,7 @@ const LoginPage = () => {
       .then((res) => {
         toast.success("Logged in successfully");
         navigate("/");
+        window.location.reload(true)
       })
       .catch((error) => {
         toast.error(error.response.data.message);
