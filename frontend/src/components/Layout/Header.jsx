@@ -14,7 +14,8 @@ import Navbar from "./Navbar";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import { backend_url } from "../../server";
-import Cart from "../cart/Cart.jsx"
+import Cart from "../cart/Cart";
+import Wishlist from "../wishlist/Wishlist";
 
 const Header = ({ activeHeading }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -142,7 +143,10 @@ const Header = ({ activeHeading }) => {
           </div>
           <div className="flex">
             <div className={`${styles.normalFlex}`}>
-              <div className="relative cursor-pointer mr-[15px]">
+              <div
+                className="relative cursor-pointer mr-[15px]"
+                onClick={() => setWishlistOpen(true)}
+              >
                 <AiOutlineHeart size={30} color="rgb(255 255 255 /83%)" />
                 <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-o text-white font-mono text-[12px] leading-tight text-center">
                   0
@@ -150,7 +154,10 @@ const Header = ({ activeHeading }) => {
               </div>
             </div>
             <div className={`${styles.normalFlex}`}>
-              <div className="relative cursor-pointer mr-[15px]" onClick={()=> setCartOpen(true)}>
+              <div
+                className="relative cursor-pointer mr-[15px]"
+                onClick={() => setCartOpen(true)}
+              >
                 <AiOutlineShoppingCart
                   size={30}
                   color="rgb(255 255 255 /83%)"
@@ -178,11 +185,11 @@ const Header = ({ activeHeading }) => {
               </div>
             </div>
             {/* cart pop-up */}
-            {
-              openCart ? (
-                <Cart setCartOpen={setCartOpen}/>
-              ): null
-            }
+            {openCart ? <Cart setCartOpen={setCartOpen} /> : null}
+            {/* wishlist pop-up */}
+            {openWishlist ? (
+              <Wishlist setWishlistOpen={setWishlistOpen} />
+            ) : null}
           </div>
         </div>
       </div>

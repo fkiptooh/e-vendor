@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
-import { HiOutlineMinus, HiPlus } from "react-icons/hi";
 import styles from "../../styles/styles";
 import { Link } from "react-router-dom";
+import { BsCartPlus } from "react-icons/bs";
+import { AiOutlineHeart } from "react-icons/ai";
 
-const Cart = ({ setCartOpen }) => {
+const Wishlist = ({ setWishlistOpen }) => {
   const cartData = [
     {
       name: "Iphone 14 pro max 256gb ssd 8gb ram silver color",
@@ -13,12 +14,12 @@ const Cart = ({ setCartOpen }) => {
       price: 984,
     },
     {
-      name: "Iphone 14 pro max 256gb ssd 8gb ram silver color",
+      name: "Iphone 14 pro max 256gb ssd 8gb ram black color",
       description: "Test data",
       price: 645,
     },
     {
-      name: "Iphone 14 pro max 256gb ssd 8gb ram silver color",
+      name: "Iphone 14 pro max 256gb ssd 8gb ram orange color",
       description: "Test data",
       price: 456,
     },
@@ -31,57 +32,33 @@ const Cart = ({ setCartOpen }) => {
             <RxCross1
               size={25}
               className="cursor-pointer"
-              onClick={() => setCartOpen(false)}
+              onClick={() => setWishlistOpen(false)}
             />
           </div>
           {/* item list */}
           <div className={`${styles.normalFlex} p-5`}>
-            <IoBagHandleOutline size={25} />
+            <AiOutlineHeart size={25} />
             <h5 className="pl-2 text-[20px] font-[500]"> 3 Items</h5>
           </div>
           {/* cart single item */}
           <br />
           <div className="w-full border-t">
             {cartData &&
-              cartData.map((i, index) => <CartSingle key={index} data={i} />)}
+              cartData.map((i, index) => <WishItem key={index} data={i} />)}
           </div>
-        </div>
-        <div className="px-5 mb-3">
-          {/* checkout button*/}
-          <Link to="/checkout">
-            <div
-              className={`h-[45px] flex items-center justify-center w-[100%] bg-[#e44343] rounded-[5px]  `}
-            >
-                <h1 className="text-[#fff] text-[18px] font-[600]">Checkout Now (Ksh189282)</h1>
-            </div>
-          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-const CartSingle = ({ data }) => {
+const WishItem = ({ data }) => {
   const [value, setValue] = useState(1);
   const totalPrice = data.price * value;
   return (
     <div className="border-b p-4">
       <div className="w-full flex items-center">
-        <div>
-          <div
-            className={`bg-[#e44343] border border-[#e4434373] rounded-full w-[25px] h-[25px] ${styles.normalFlex} justify-center cursor-pointer`}
-            onClick={() => setValue(value + 1)}
-          >
-            <HiPlus size={18} color="#fff" />
-          </div>
-          <span className="pl-[10px]"> {value} </span>
-          <div
-            className="bg-[#a7abb14f] rounded-full w-[25px] h-[25px] flex items-center justify-center cursor-pointer"
-            onClick={() => setValue(value === 1 ? 1 : value - 1)}
-          >
-            <HiOutlineMinus size={16} color="#7d879c" />
-          </div>
-        </div>
+        <RxCross1 className="cursor-pointer" />
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3av-U1FsxG8ydJxeLLfhqAKWixgYNb76AcA&usqp=CAU"
           alt="phone"
@@ -89,17 +66,16 @@ const CartSingle = ({ data }) => {
         />
         <div className="pl-[5px]">
           <h1>{data.name}</h1>
-          <h4 className="font-[400] text-[15px] text-[#00000082]">
-            {data.price} * {value}
-          </h4>
           <h4 className="font-[600] text-[17px] text-[#d02222] font-Roboto">
             {totalPrice}
           </h4>
         </div>
-        <RxCross1 className="cursor-pointer" />
+        <div>
+          <BsCartPlus size={20} className="cursor-pointer" title="Add to cart" />
+        </div>
       </div>
     </div>
   );
 };
 
-export default Cart;
+export default Wishlist;
