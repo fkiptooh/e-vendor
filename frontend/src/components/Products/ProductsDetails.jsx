@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../../styles/styles";
 import {
   AiFillHeart,
@@ -252,6 +252,11 @@ const ProductDetailsInfo = ({ data }) => {
                     <h5 className="font-[600] pt-3">
                         Total Review: <span className="font-[500]">234</span>
                     </h5>
+                    <Link to="/">
+                        <div className={`${styles.button} !rounded-[4px] !h-[39.5px] mt-3`}>
+                            <h4 className="text-white">Visit Shop</h4>
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>
