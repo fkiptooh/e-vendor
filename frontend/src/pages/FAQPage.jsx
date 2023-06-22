@@ -171,7 +171,7 @@ const Faq = () => {
             <div className="mt-4">
               <p className="text-base text-gray-500">
                 You can contact our customer support team by emailing us at
-                support@myecommercestore.com, or by calling us at (555) 123-4567
+                support@myecommercestore.com, or by calling us at +254 711812706
                 between the hours of 9am and 5pm EST, Monday through Friday.
               </p>
             </div>
