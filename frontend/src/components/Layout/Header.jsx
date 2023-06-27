@@ -196,7 +196,11 @@ const Header = ({ activeHeading }) => {
         </div>
       </div>
       {/* mobile navbar */}
-      <div className="w-full h-[60px] fixed bg-[#fff] z-50 top-0 left-0 shadow-sm md:hidden">
+      <div  className={`${
+          active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
+        }
+      w-full h-[60px] bg-[#fff] z-50 top-0 left-0 shadow-sm md:hidden`}
+      >
         <div className="w-full flex items-center justify-between">
           <div>
             <BiMenuAltLeft
@@ -227,7 +231,7 @@ const Header = ({ activeHeading }) => {
         {open && (
           <div className="fixed w-full bg-[#0000005f] z-20 h-full top-0 left-0">
             <div className="fixed w-[60%] bg-[#fff] h-screen top-0 left-0 z-10 overflow-y-scroll">
-              <div className="w-full justify-between flex pr-3">
+              <div className="w-full flex items-center justify-between">
                 <div>
                   <div className="relative mr-[15px]">
                     <AiOutlineHeart size={30} className="mt-5 ml-3" />
@@ -257,7 +261,7 @@ const Header = ({ activeHeading }) => {
 
                       const Product_name = d.replace(/\s+/g, "-");
                       return (
-                        <Link to={`/product/${Product_name}`} onClick={()=> setOpen(false)}>
+                        <Link to={`/product/${Product_name}`}>
                           <div className="flex items-center">
                             <img
                               src={i.image_Url[0].url}
@@ -272,9 +276,18 @@ const Header = ({ activeHeading }) => {
                   </div>
                 )}
               </div>
+              <Navbar active={activeHeading} />
+              <div className={`${styles.button} ml-4 !rounded-[4px]`}>
+                <Link to="/seller">
+                  <h1 className="flex items-center text-[#fff]">
+                    Become Seller <IoIosArrowForward className="ml-4"/>
+                  </h1>
+                </Link>
+              </div>
             </div>
           </div>
         )}
+
       </div>
     </>
   );
