@@ -100,7 +100,7 @@ const Header = ({ activeHeading }) => {
             ) : null}
           </div>
           <div className={`${styles.button}`}>
-            <Link to={`/seller`}>
+            <Link to={`/shop-create`}>
               <h1 className="text-[#fff] flex items-center">
                 Become Seller <IoIosArrowForward className="ml-1" />
               </h1>
@@ -196,7 +196,8 @@ const Header = ({ activeHeading }) => {
         </div>
       </div>
       {/* mobile navbar */}
-      <div  className={`${
+      <div
+        className={`${
           active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
         }
       w-full h-[60px] bg-[#fff] z-50 top-0 left-0 shadow-sm md:hidden`}
@@ -271,23 +272,51 @@ const Header = ({ activeHeading }) => {
                             <h5>{i.name}</h5>
                           </div>
                         </Link>
-                        );
-                      })}
+                      );
+                    })}
                   </div>
                 )}
               </div>
               <Navbar active={activeHeading} />
               <div className={`${styles.button} ml-4 !rounded-[4px]`}>
-                <Link to="/seller">
+                <Link to="/shop-create">
                   <h1 className="flex items-center text-[#fff]">
-                    Become Seller <IoIosArrowForward className="ml-4"/>
+                    Become Seller <IoIosArrowForward className="ml-4" />
                   </h1>
                 </Link>
+              </div>
+              <br />
+              <div className="flex w-full justify-center">
+                {!isAuthenticated ? (
+                  <>
+                    <Link
+                      to="/login"
+                      className="text-[18px] pr-[10px] text-[#000000d2]"
+                    >
+                      Login /
+                    </Link>
+                    <Link
+                      to="/sign-up"
+                      className="text-[18px] text-[#000000d2]"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                ) : (
+                  <div>
+                    <Link to="/profile">
+                      <img
+                        src={`${backend_url}${user.avatar}`}
+                        alt="user_avatar"
+                        className="h-[60px] w-[60px] rounded-full border-[2px] border-[#14c414]"
+                      />
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         )}
-
       </div>
     </>
   );

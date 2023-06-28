@@ -12,11 +12,10 @@ import {
   FAQPage,
   ProductDetailPage,
   ProfilePage,
+  ShopCreatePage
 } from "./Routes.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import axios from "axios";
-// import { server } from "./server";
 import Store from "./redux/store";
 import { loadUser } from "./redux/action/user";
 import { useSelector } from "react-redux";
@@ -24,15 +23,6 @@ import ProtectedRoute from "./ProtectedRoute";
 
 const App = () => {
   useEffect(() => {
-    // axios
-    //   .get(`${server}/user/getuser`, { withCredentials: true })
-    //   .then((res) => {
-    //     toast.success(res.data.message);
-    //   })
-    //   .catch((err) => {
-    //     toast.error(err.response.data.message)
-    //     console.log(err)
-    //   });
     Store.dispatch(loadUser());
   }, []);
   const { loading, isAuthenticated } = useSelector((state) => state.user);
@@ -61,6 +51,16 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+             <Route
+              path="/checkout"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/shop-create" element={<ShopCreatePage/>}/>
+
           </Routes>
           <ToastContainer
             position="top-right"
