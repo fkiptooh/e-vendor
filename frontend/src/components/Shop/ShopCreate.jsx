@@ -20,24 +20,26 @@ const ShopCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-    await axios
-      .post(
-        `${server}/user/login-user`,
-        {
-          email,
-          password,
-        },
-        { withCredentials: true }
-      )
+    const newForm = new FormData();
+
+    newForm.append("file", avatar);
+    newForm.append("name", name);
+    newForm.append("email", email);
+    newForm.append("password", password);
+
+    axios
+      .post(`${server}/user/create-user`, newForm, config)
       .then((res) => {
-        toast.success("Logged in successfully");
-        navigate("/");
-        window.location.reload(true)
+        toast.success(res.data.message);
+        setName("");
+        setPassword("");
+        setEmail("");
+        setAvatar();
       })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-        // console.log(error)
+      .catch((err) => {
+        toast.error(err.response.data.message);
       });
   };
 

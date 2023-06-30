@@ -29,17 +29,16 @@ router.post("/create-user", upload.single("file"), async (req, res, next) => {
       return next(new ErrorHandler("User alreafy exist", 400));
     }
     const filename = req.file.filename;
-    const fileUrl = path.join(filename)
+    const fileUrl = path.join(filename);
     const seller = {
-        name : req.body.name,
-        email: email,
-        password: req.body.password,
-        avatar: fileUrl,
-        address: req.body.address,
-        phoneNumber: req.body.phoneNumber,
-        zipCode: req.body.zipCode
-
-    }
+      name: req.body.name,
+      email: email,
+      password: req.body.password,
+      avatar: fileUrl,
+      address: req.body.address,
+      phoneNumber: req.body.phoneNumber,
+      zipCode: req.body.zipCode,
+    };
     const activationToken = createActivationToken(seller);
 
     const activationUrl = `http://localhost:3000/seller/activation/${activationToken}`;
@@ -59,6 +58,50 @@ router.post("/create-user", upload.single("file"), async (req, res, next) => {
     }
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));
-  }}
-  );
+  }
+});
+
+// create activation token
+const createActivationToken = (seller) => {
+  return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
+    expiresIn: "5m",
+  });
+};
+
+// seller activation
+router.post(
+  "/shop/activation",
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const { activation_token } = req.body;
+      const newSeller = jwt.verify(
+        activation_token,
+        process.env.ACTIVATION_SECRET
+      );
+
+      if (!newSeller) {
+        return next(new ErrorHandler("Invalid token", 400));
+      }
+      const { name, email, password, avatar, zipCode, address, phoneNumber } =
+        newSeller;
+
+      let seller = await Shop.findOne({ email });
+      if (seller) {
+        return next(new ErrorHandler("Expired token", 405));
+      }
+      seller = await Shop.create({
+        name,
+        email,
+        password,
+        avatar,
+        zipCode,
+        address,
+        phoneNumber,
+      });
+
+      sendToken(seller, 201, res);
+    } catch (error) {}
+  })
+);
+
 module.exports = router;
