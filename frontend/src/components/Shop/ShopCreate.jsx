@@ -28,15 +28,21 @@ const ShopCreate = () => {
     newForm.append("name", name);
     newForm.append("email", email);
     newForm.append("password", password);
+    newForm.append("zipcode", zipCode);
+    newForm.append("address", address);
+    newForm.append("phonenumber", phoneNumber);
 
     axios
-      .post(`${server}/user/create-user`, newForm, config)
+      .post(`${server}/shop/create-shop`, newForm, config)
       .then((res) => {
         toast.success(res.data.message);
         setName("");
         setPassword("");
         setEmail("");
         setAvatar();
+        setZipCode();
+        setAddress("");
+        setPhoneNumber();
       })
       .catch((err) => {
         toast.error(err.response.data.message);

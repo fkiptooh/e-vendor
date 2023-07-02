@@ -12,7 +12,7 @@ const sendToken = require("../utils/jwtToken");
 const { isAuthenticated } = require("../middleware/auth");
 const Shop = require("../model/shop");
 
-router.post("/create-user", upload.single("file"), async (req, res, next) => {
+router.post("/create-shop", upload.single("file"), async (req, res, next) => {
   try {
     const { email } = req.body;
     const sellerEmail = await Shop.findOne({ email });
