@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const shopSchema = new mongoose.Schema({
   name:{
@@ -17,29 +19,19 @@ const shopSchema = new mongoose.Schema({
   },
   phoneNumber:{
     type: Number,
+    required: true
   },
-  addresses:[
-    {
-      country: {
-        type: String,
-      },
-      city:{
-        type: String,
-      },
-      address1:{
-        type: String,
-      },
-      address2:{
-        type: String,
-      },
-      zipCode:{
-        type: Number,
-      },
-      addressType:{
-        type: String,
-      },
-    }
-  ],
+  description: {
+    type: String
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  zipCode: {
+    type: Number,
+    required: true
+  },
   role:{
     type: String,
     default: "Seller",

@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const { upload } = require("../multer");
-const User = require("../model/user");
 const ErrorHandler = require("../utils/ErrorHandler");
 const router = express.Router();
 const fs = require("fs");
@@ -26,7 +25,7 @@ router.post("/create-shop", upload.single("file"), async (req, res, next) => {
           res.status(500).json({ message: "Error deleting file" });
         }
       });
-      return next(new ErrorHandler("User alreafy exist", 400));
+      return next(new ErrorHandler("Shop already exist", 400));
     }
     const filename = req.file.filename;
     const fileUrl = path.join(filename);
@@ -70,7 +69,7 @@ const createActivationToken = (seller) => {
 
 // seller activation
 router.post(
-  "/shop/activation",
+  "/activation",
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { activation_token } = req.body;
