@@ -88,6 +88,7 @@ router.post(
       if (seller) {
         return next(new ErrorHandler("Expired token", 405));
       }
+      console.log(name, email, password, avatar, zipCode, address, phoneNumber);
       seller = await Shop.create({
         name,
         email,
