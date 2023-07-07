@@ -10,9 +10,9 @@ import { RxAvatar } from "react-icons/rx";
 const ShopCreate = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState();
+  const [phoneNumber, setPhoneNumber] = useState(711812706);
   const [address, setAddress] = useState("");
-  const [zipCode, setZipCode] = useState();
+  const [zipCode, setZipCode] = useState(20210);
   const [avatar, setAvatar] = useState()
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);

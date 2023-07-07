@@ -34,9 +34,9 @@ router.post("/create-shop", upload.single("file"), async (req, res, next) => {
       email: email,
       password: req.body.password,
       avatar: fileUrl,
+      zipCode: req.body.zipCode,
       address: req.body.address,
       phoneNumber: req.body.phoneNumber,
-      zipCode: req.body.zipCode,
     };
     const activationToken = createActivationToken(seller);
 
