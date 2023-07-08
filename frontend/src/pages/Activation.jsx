@@ -6,24 +6,24 @@ import { server } from '../server'
 const Activation = () => {
   const { activation_token } = useParams()
   const [error, setError] = useState(false)
-  useEffect(()=>{
+  useEffect(() => {
     if (activation_token) {
       const activationEmail = async () => {
         try {
-          const res = await axios.post(`${server}/user/activation` , {
-            activation_token
+          const res = await axios.post(`${server}/user/activation`, {
+            activation_token,
           });
 
-          console.log(res.data.message)
+          console.log(res.data.message);
         } catch (error) {
-          console.log(error.response.data.message)
-          setError(true)
+          console.log(error.response.data.message);
+          setError(true);
         }
       };
 
       activationEmail();
     }
-  }, [activation_token])
+  }, []);
   return (
     <div style={{
       width: "100%",

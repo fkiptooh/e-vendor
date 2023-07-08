@@ -10,10 +10,10 @@ import { RxAvatar } from "react-icons/rx";
 const ShopCreate = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState(711812706);
+  const [phoneNumber, setPhoneNumber] = useState(null);
   const [address, setAddress] = useState("");
-  const [zipCode, setZipCode] = useState(20210);
-  const [avatar, setAvatar] = useState()
+  const [zipCode, setZipCode] = useState(null);
+  const [avatar, setAvatar] = useState();
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ const ShopCreate = () => {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-ld sm:px-8 rounded-md">
           <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
+            <div>
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
@@ -93,8 +93,12 @@ const ShopCreate = () => {
                   type="number"
                   name="phone-number"
                   required
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  value={phoneNumber !== null ? phoneNumber : ""}
+                  onChange={(e) =>
+                    setPhoneNumber(
+                      e.target.value !== "" ? parseInt(e.target.value) : null
+                    )
+                  }
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
@@ -141,16 +145,20 @@ const ShopCreate = () => {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Zip Code 
+                Zip Code
               </label>
               <div className="mt-1">
                 <input
                   type="number"
                   name="zipCode"
                   required
-                  value={zipCode}
-                  onChange={(e) => setZipCode(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  value={zipCode !== null ? zipCode : ""}
+                  onChange={(e) =>
+                    setZipCode(
+                      e.target.value !== "" ? parseInt(e.target.value) : null
+                    )
+                  }
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placehold er-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
             </div>
