@@ -6,7 +6,7 @@ import axios from "axios";
 import { server } from "../../server.js";
 import { toast } from "react-toastify";
 
-const LoginPage = () => {
+const ShopLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
@@ -17,7 +17,7 @@ const LoginPage = () => {
 
     await axios
       .post(
-        `${server}/user/login-user`,
+        `${server}/shop/shop-login`,
         {
           email,
           password,
@@ -27,7 +27,7 @@ const LoginPage = () => {
       .then((res) => {
         toast.success("Logged in successfully");
         navigate("/");
-        window.location.reload(true)
+        window.location.reload(true);
       })
       .catch((error) => {
         toast.error(error.response.data.message);
@@ -38,7 +38,7 @@ const LoginPage = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-3xl text-center font-extrabold  text-gray-900">
-          Login to your account
+          Login to your shop account
         </h2>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -129,7 +129,7 @@ const LoginPage = () => {
             </div>
             <div className={`${styles.normalFlex} w-full`}>
               <h4>Have no account yet?</h4>
-              <Link to="/sign-up" className="text-blue-600 pl-2">
+              <Link to="/shop-create" className="text-blue-600 pl-2">
                 Register
               </Link>
             </div>
@@ -140,4 +140,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ShopLogin;
