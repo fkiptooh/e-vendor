@@ -15,7 +15,7 @@ import {
   ShopCreatePage,
   SellerActivationPage,
   ShopLoginPage,
-} from "./Routes.js";
+} from "./routes/Routes.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Store from "./redux/store";
@@ -24,6 +24,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import { loadSeller } from "./redux/action/seller";
 import { ShopHomePage } from "./ShopRoute.js";
 import SellerProtectedRoute from "./routes/SellerProtectedRoute";
+import { ShopDashboardPage } from "./routes/ShopRoutes";
 
 const App = () => {
   useEffect(() => {
@@ -70,6 +71,14 @@ const App = () => {
           element={
             <SellerProtectedRoute>
               <ShopHomePage />
+            </SellerProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <SellerProtectedRoute>
+              <ShopDashboardPage />
             </SellerProtectedRoute>
           }
         />
