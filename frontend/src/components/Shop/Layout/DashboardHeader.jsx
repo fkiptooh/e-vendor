@@ -1,9 +1,11 @@
 import React from "react";
 import { AiOutlineGift } from "react-icons/ai";
 import { MdOutlineLocalOffer } from "react-icons/md";
-import { FiShoppingBag } from "react-icons/fi";
+import { FiPackage, FiShoppingBag } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { BiMessageSquareDetail } from "react-icons/bi";
+import { backend_url } from "../../../server";
 
 const DashboardHeader = () => {
   const { seller } = useSelector((state) => state.seller);
@@ -19,25 +21,53 @@ const DashboardHeader = () => {
       </div>
       <div className="flex items-center">
         <div className="flex items-center mr-4">
-          <Link to="/dashboard/coupons">
+          <Link to="/dashboard-coupons">
             <AiOutlineGift
               //   color="#555"
               size={30}
               className="mx-5 cursor-pointer"
             />
           </Link>
-          <Link to="/dashboard/events">
+          <Link to="/dashboard-events">
             <MdOutlineLocalOffer
               //   color="#5555"
               size={30}
               className="mx-5 cursor-pointer"
             />
           </Link>
-          <Link to="/dashboard/events">
+          <Link to="/dashboard-products">
             <FiShoppingBag
               //   color="#5555"
               size={30}
               className="mx-5 cursor-pointer"
+            />
+          </Link>
+          <Link to="/dashboard-products">
+            <FiShoppingBag
+              //   color="#5555"
+              size={30}
+              className="mx-5 cursor-pointer"
+            />
+          </Link>
+          <Link to="/dashboard-orders">
+            <FiPackage
+              //   color="#5555"
+              size={30}
+              className="mx-5 cursor-pointer"
+            />
+          </Link>
+          <Link to="/dashboard-products">
+            <BiMessageSquareDetail
+              //   color="#5555"
+              size={30}
+              className="mx-5 cursor-pointer"
+            />
+          </Link>
+          <Link to={`/shop/${seller._id}`}>
+            <img
+              src={`${backend_url}${seller.avatar}`}
+              alt=""
+              className="w-[50px] h-[50px] rounded-full object-cover"
             />
           </Link>
         </div>
