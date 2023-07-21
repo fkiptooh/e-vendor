@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { categoriesData } from "../../static/data";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const CreateProduct = () => {
   const { seller } = useSelector((state) => state.seller);
@@ -19,6 +20,13 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+
+  const handleImageChange = (e) => {
+    e.preventDefault();
+
+    let files = Array.from(e.target.files);
+    setImages((prevImages) => [...prevImages, ...files]);
   };
 
   return (
@@ -111,6 +119,56 @@ const CreateProduct = () => {
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             value={discountPrice}
             onChange={(e) => setDiscountPrice(e.target.value)}
+          />
+        </div>
+        <br />
+        <div>
+          <label className="pb-2">
+            Stock <span className="text-rose-500">*</span>
+          </label>
+          <input
+            type="number"
+            name="stock"
+            placeholder="Enter your product stock..."
+            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            value={stock}
+            onChange={(e) => setStock(e.target.value)}
+          />
+        </div>
+        <br />
+        <div>
+          <label className="pb-2">
+            Upload Images <span className="text-rose-500">*</span>
+          </label>
+          <input
+            type="file"
+            name=""
+            id="upload"
+            className="hidden"
+            multiple
+            onChange={handleImageChange}
+          />
+          <div className="w-full flex items-center flex-wrap">
+            <label htmlFor="upload">
+              <AiOutlinePlusCircle size={30} className="mt-3" />
+            </label>
+            {images &&
+              images.map((i) => (
+                <img
+                  src={URL.createObjectURL(i)}
+                  key={i}
+                  alt=""
+                  className="h-[120px] w-[120px] object-cover m-2 rounded-full"
+                />
+              ))}
+          </div>
+        </div>
+        <br />
+        <div>
+          <input
+            type="submit"
+            value="Create"
+            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
       </form>
