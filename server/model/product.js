@@ -28,9 +28,6 @@ const productScheme = new mongoose.Schema({
     type: Number,
     require: [true, "Please enter the product stoke!"],
   },
-  name: {
-    type: String,
-  },
   shopId: {
     type: String,
     required: true,
