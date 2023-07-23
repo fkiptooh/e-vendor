@@ -15,7 +15,6 @@ const productScheme = new mongoose.Schema({
   },
   tags: {
     type: String,
-    require: [true, "Please enter the product tags!"],
   },
   originalPrice: {
     type: Number,
@@ -28,6 +27,7 @@ const productScheme = new mongoose.Schema({
     type: Number,
     require: [true, "Please enter the product stoke!"],
   },
+  images: [{}],
   shopId: {
     type: String,
     required: true,
