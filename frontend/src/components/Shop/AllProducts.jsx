@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProductsShop } from "../../redux/action/product";
+import { deleteProduct, getAllProductsShop } from "../../redux/action/product";
 import { Link } from "react-router-dom";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { Button } from "@material-ui/core";
@@ -11,6 +11,11 @@ const AllProducts = () => {
   const { products, isLoading } = useSelector((state) => state.products);
   const { seller } = useSelector((state) => state.seller);
   const dispatch = useDispatch();
+
+  const handleDelete = (id) => {
+    dispatch(deleteProduct(id));
+    window.location.reload();
+  };
 
   useEffect(() => {
     dispatch(getAllProductsShop(seller._id));
@@ -70,7 +75,7 @@ const AllProducts = () => {
       renderCell: (params) => {
         return (
           <>
-            <Button>
+            <Button onClick={() => handleDelete(params.id)}>
               <AiOutlineDelete size={20} />
             </Button>
           </>
