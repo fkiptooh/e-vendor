@@ -93,7 +93,7 @@ const AllProducts = () => {
         name: item.name,
         price: "Ksh " + item.discountPrice,
         stock: item.stock,
-        sold: item.sold,
+        sold: item.sold_out,
       });
     });
   return (
