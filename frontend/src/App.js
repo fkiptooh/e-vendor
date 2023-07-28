@@ -111,6 +111,14 @@ const App = () => {
             </SellerProtectedRoute>
           }
         />
+        <Route
+          path="/dashboard-events"
+          element={
+            <SellerProtectedRoute>
+              <ShopCreateEvents />
+            </SellerProtectedRoute>
+          }
+        />
       </Routes>
       <ToastContainer
         position="top-right"
