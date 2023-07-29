@@ -30,6 +30,7 @@ import {
   ShopAllProducts,
   ShopCreateEvents,
   ShopAllEvents,
+  ShopAllCoupons,
 } from "./routes/ShopRoutes";
 
 const App = () => {
@@ -117,6 +118,14 @@ const App = () => {
           element={
             <SellerProtectedRoute>
               <ShopAllEvents />
+            </SellerProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard-coupons"
+          element={
+            <SellerProtectedRoute>
+              <ShopAllCoupons />
             </SellerProtectedRoute>
           }
         />
