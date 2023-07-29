@@ -1,24 +1,24 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getAllProductsShop } from "../../redux/action/product";
 import { Link } from "react-router-dom";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { Button } from "@material-ui/core";
 import Loader from "../Layout/Loader";
 import { DataGrid } from "@material-ui/data-grid";
+import { deleteEvent, getAllShopEvents } from "../../redux/action/event";
 
-const AllProducts = () => {
-  const { products, isLoading } = useSelector((state) => state.products);
+const AllEvents = () => {
+  const { events, isLoading } = useSelector((state) => state.events);
   const { seller } = useSelector((state) => state.seller);
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
-    dispatch(deleteProduct(id));
+    dispatch(deleteEvent(id));
     window.location.reload();
   };
 
   useEffect(() => {
-    dispatch(getAllProductsShop(seller._id));
+    dispatch(getAllShopEvents(seller._id));
   }, [dispatch, seller._id]);
   const columns = [
     { field: "id", headerName: "Product ID", minWidth: 150, flex: 0.7 },
@@ -86,8 +86,8 @@ const AllProducts = () => {
 
   const row = [];
 
-  products &&
-    products.forEach((item) => {
+  events &&
+    events.forEach((item) => {
       row.push({
         id: item._id,
         name: item.name,
@@ -115,4 +115,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default AllEvents;
