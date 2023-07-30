@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getAllProductsShop } from "../../redux/action/product";
-import { Link } from "react-router-dom";
-import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { Button } from "@material-ui/core";
-import Loader from "../Layout/Loader";
 import { DataGrid } from "@material-ui/data-grid";
-import styles from "../../styles/styles";
-import { RxCross1 } from "react-icons/rx";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { AiOutlineDelete } from "react-icons/ai";
+import { RxCross1 } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
+import styles from "../../styles/styles";
+import Loader from "../Layout/Loader";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import { getAllProductsShop } from "../../redux/action/product";
 
 const AllCoupons = () => {
+  const { products } = useSelector((state) => state.products);
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -21,80 +21,75 @@ const AllCoupons = () => {
   const [maxAmount, setMaxAmount] = useState(null);
   const [selectedProducts, setSelectedProducts] = useState(null);
   const [value, setValue] = useState(null);
-  const { products } = useSelector((state) => state.products);
   const { seller } = useSelector((state) => state.seller);
+
   const dispatch = useDispatch();
 
-  const handleDelete = (id) => {
-    dispatch(deleteProduct(id));
+  useEffect(() => {
+    setIsLoading(true);
+    dispatch(getAllProductsShop(seller._id));
+    axios
+      .get(`${server}/coupon/get-coupon/${seller._id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setIsLoading(false);
+        setCoupouns(res.data.couponCodes);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error);
+      });
+  }, [dispatch, seller._id]);
+
+  const handleDelete = async (id) => {
+    axios
+      .delete(`${server}/coupon/delete-coupon/${id}`, { withCredentials: true })
+      .then((res) => {
+        toast.success("Coupon code deleted succesfully!");
+      });
     window.location.reload();
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     await axios
-      .post(`${server}/coupon/create-coupon-code`, {
-        name,
-        minAmount,
-        maxAmount,
-        selectedProducts,
-        value,
-        seller,
-      })
+      .post(
+        `${server}/coupon/create-coupon-code`,
+        {
+          name,
+          minAmount,
+          maxAmount,
+          selectedProducts,
+          value,
+          shopId: seller._id,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
-        console.log(res.data);
+        toast.success("Coupon code created successfully!");
+        setOpen(false);
+        window.location.reload();
       })
       .catch((error) => {
         toast.error(error.response.data.message);
       });
   };
-  useEffect(() => {
-    dispatch(getAllProductsShop(seller._id));
-  }, [dispatch, seller._id]);
+
   const columns = [
-    { field: "id", headerName: "Product ID", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Id", minWidth: 150, flex: 0.7 },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Coupon Code",
       minWidth: 180,
-      flex: 0.6,
-    },
-    { field: "price", headerName: "Price", minWidth: 100, flex: 0.6 },
-    {
-      field: "stock",
-      headerName: "Stock",
-      type: "number",
-      minWidth: 80,
-      flex: 0.6,
-    },
-
-    {
-      field: "sold",
-      headerName: "Sold Out",
-      type: "number",
-      minWidth: 130,
-      flex: 0.8,
+      flex: 1.4,
     },
     {
-      field: "Preview",
-      headerName: "",
+      field: "price",
+      headerName: "Value",
       minWidth: 100,
-      flex: 0.8,
-      type: "number",
-      sortable: false,
-      renderCell: (params) => {
-        const d = params.row.name;
-        const product_name = d.replace(/\s+/g, "-");
-        return (
-          <>
-            <Link to={`/product/${product_name}`}>
-              <Button>
-                <AiOutlineEye size={20} />
-              </Button>
-            </Link>
-          </>
-        );
-      },
+      flex: 0.6,
     },
     {
       field: "Delete",
@@ -117,16 +112,16 @@ const AllCoupons = () => {
 
   const row = [];
 
-  products &&
-    products.forEach((item) => {
+  coupouns &&
+    coupouns.forEach((item) => {
       row.push({
         id: item._id,
         name: item.name,
-        price: "Ksh " + item.discountPrice,
-        stock: item.stock,
-        sold: item.sold_out,
+        price: item.value + " %",
+        sold: 10,
       });
     });
+
   return (
     <>
       {isLoading ? (
@@ -135,7 +130,7 @@ const AllCoupons = () => {
         <div className="w-full mx-8 pt-1 mt-10 bg-white">
           <div className="w-full flex justify-end">
             <div
-              className={`${styles.button} !w-[180px] px-2 !rounded-[5px] mr-3`}
+              className={`${styles.button} !w-max !h-[45px] px-3 !rounded-[5px] mr-3 mb-3`}
               onClick={() => setOpen(true)}
             >
               <span className="text-white">Create Coupon Code</span>
@@ -159,10 +154,10 @@ const AllCoupons = () => {
                   />
                 </div>
                 <h5 className="text-[30px] font-Poppins text-center">
-                  Create Coupon Code
+                  Create Coupon code
                 </h5>
-                {/* Create coupon */}
-                <form onSubmit={handleSubmit}>
+                {/* create coupoun code */}
+                <form onSubmit={handleSubmit} aria-required={true}>
                   <br />
                   <div>
                     <label className="pb-2">
