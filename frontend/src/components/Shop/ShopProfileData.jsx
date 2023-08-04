@@ -6,6 +6,7 @@ import styles from "../../styles/styles";
 
 const ShopProfileData = ({ isOwner }) => {
   const [active, setActive] = useState(1);
+  // call states for varous usecases : seller/ shop products specific for the creating seller.
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
