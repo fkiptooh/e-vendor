@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import styles from "../../../styles/styles";
 import { AiFillHeart, AiOutlineHeart, AiOutlineMessage, AiOutlineShoppingCart } from "react-icons/ai";
+import { backend_url } from "../../../server";
 
 const ProductDetailsCard = ({ setOpen, data }) => {
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
-//   const [select, setSelect] = useState(false);
+  //   const [select, setSelect] = useState(false);
   const handleMessageSubmit = () => {};
 
   const decrementCount = () => {
@@ -30,10 +31,10 @@ const ProductDetailsCard = ({ setOpen, data }) => {
             />
             <div className="block w-full md:flex">
               <div className="w-full md:w-[50%]">
-                <img src={data.image_Url[0].url} alt="" />
+                <img src={`${backend_url}${data.images[0]}`} alt="" />
                 <div className="flex">
                   <img
-                    src={data.shop.shop_avatar.url}
+                    src={`${backend_url}${data?.shop.avatar}`}
                     alt=""
                     className="w-[50px] h-[50px] rounded-full mr-2"
                   />
@@ -53,7 +54,7 @@ const ProductDetailsCard = ({ setOpen, data }) => {
                   </span>
                 </div>
                 <h5 className="text-[16px] text-[red] mt-4">
-                  ({data.total_sell}) sold out
+                  ({data.sold_out}) sold out
                 </h5>
               </div>
               <div className="w-full md:w-[50%] pt-5 pl-[5px] pr-[5px]">
@@ -63,10 +64,10 @@ const ProductDetailsCard = ({ setOpen, data }) => {
                 <p className="text-[12px] text-[gray]">{data.description}</p>
                 <div className="flex pt-3">
                   <h4 className={`${styles.productDiscountPrice}`}>
-                    {data.discount_price} $
+                    {data.discountPrice} $
                   </h4>
                   <h3 className={`${styles.price}`}>
-                    {data.price ? data.price + "$" : null}
+                    {data.originalPrice ? data.originalPrice + "$" : null}
                   </h3>
                 </div>
                 <div className="flex items-center justify-between mt-12 pr-3">
@@ -107,10 +108,12 @@ const ProductDetailsCard = ({ setOpen, data }) => {
                     )}
                   </div>
                 </div>
-                <div className={`${styles.button} mt-6 rounded-[4px] h-11 flex items-center`}>
-                    <span className="text-[#fff] text-[12px] flex items-center">
-                        Add to Cart <AiOutlineShoppingCart className="ml-1"/>
-                    </span>
+                <div
+                  className={`${styles.button} mt-6 rounded-[4px] h-11 flex items-center`}
+                >
+                  <span className="text-[#fff] text-[12px] flex items-center">
+                    Add to Cart <AiOutlineShoppingCart className="ml-1" />
+                  </span>
                 </div>
               </div>
             </div>

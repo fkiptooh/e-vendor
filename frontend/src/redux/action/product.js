@@ -34,6 +34,7 @@ export const getAllProductsShop = (id) => async (dispatch) => {
     const { data } = await axios.get(
       `${server}/product/get-all-products-shop/${id}`
     );
+    console.log("All shop products ---->", data);
 
     dispatch({
       type: "getAllProductsShopSuccess",
@@ -41,7 +42,7 @@ export const getAllProductsShop = (id) => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: "getAllPtoductsFailed",
+      type: "getAllProductsFailed",
       payload: error.response.data.message,
     });
   }
@@ -70,3 +71,25 @@ export const deleteProduct = (id) => async (dispatch) => {
     });
   }
 };
+
+// get all products
+export const getAllProducts = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "getAllProductsRequest",
+    });
+
+    const { data } = await axios.get(`${server}/product/get-all-products`);
+    console.log("All products sold on the website---->", data);
+    dispatch({
+      type: "getAllProductsSuccess",
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: "getAllProductsFailed",
+      payload: error.response.data.message,
+    });
+  }
+};
+

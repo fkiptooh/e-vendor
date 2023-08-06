@@ -4,6 +4,7 @@ const initialState = {
   isLoading: true,
   success: false,
   error: null,
+  allProducts: [],
 };
 
 export const productReducer = createReducer(initialState, {
@@ -48,5 +49,17 @@ export const productReducer = createReducer(initialState, {
   },
   clearError: (state) => {
     state.error = null;
+  },
+  // get all products
+  getAllProductsRequest: (state) => {
+    state.isLoading = true;
+  },
+  getAllProductsSuccess: (state, action) => {
+    state.isLoading = false;
+    state.allProducts = action.payload;
+  },
+  getAllProductsFailed: (state, action) => {
+    state.isLoading = false;
+    state.error = action.payload;
   },
 });
